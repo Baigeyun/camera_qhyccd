@@ -64,7 +64,7 @@ public class DownloadFirmwareTask extends AsyncTask<List<CameraDevice>, Integer,
                         Log.i(TAG,"### device not opened");
                     }else {
                         Log.i(TAG,"### device opened");
-                        CameraDeviceHelper.downloadFX2(context,usbDeviceConnection, R.raw.qhy5lii_v20170510);
+                        CameraDeviceHelper.downloadFX2(context,usbDeviceConnection, R.raw.qhy5lii_vid0920);
 
                         doanloadedCameraDeviceList.add(cameraDevice);
                     }
