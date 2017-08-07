@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="resolution">
+        <item>320*240</item>
+        <item>640*480</item>
+        <item>800*600</item>
+        <item>1024*768</item>
+        <item>1280*720</item>
+        <item>1280*960</item>
+    </string-array>
+    <string-array name="analoggain">
+        <item>0x02</item>
+        <item>0x03</item>
+        <item>0x06</item>
+        <item>0x07</item>
+        <item>0x0a</item>
+        <item>0x0b</item>
+        <item>0x0e</item>
+        <item>0x0f</item>
+    </string-array>
+    <string-array name="digitalgain">
+        <item>30</item>
+        <item>50</item>
+        <item>70</item>
+        <item>90</item>
+        <item>110</item>
+        <item>130</item>
+        <item>150</item>
+        <item>170</item>
+        <item>190</item>
+        <item>210</item>
+        <item>230</item>
+        <item>250</item>
+        <item>255</item>
+    </string-array>
+
+
+    <string-array name="traffice">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+    <string-array name="speed">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="exposureTime">
+        <item>0us</item>
+        <item>50us</item>
+        <item>100us</item>
+        <item>200us</item>
+        <item>500us</item>
+        <item>1ms</item>
+        <item>2ms</item>
+        <item>5ms</item>
+        <item>10ms</item>
+        <item>20ms</item>
+        <item>30ms</item>
+        <item>50ms</item>
+        <item>100ms</item>
+        <item>200ms</item>
+        <item>300ms</item>
+        <item>500ms</item>
+        <item>1s</item>
+        <item>2s</item>
+        <item>5s</item>
+        <item>10s</item>
+        <item>30s</item>
+        <item>60s</item>
+        <item>120s</item>
+        <item>240s</item>
+        <item>300s</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    //1618:0920 QHY5-II series FW
+    <usb-device vendor-id="5656" product-id="2337" class="0" subclass="0" protocol="0" />
+    //QHY168C FW
+    <usb-device vendor-id="5656" product-id="49511" class="0" subclass="0" protocol="0" />
+    //QHY247C FW
+    <usb-device vendor-id="5656" product-id="49735" class="0" subclass="0" protocol="0" />
+    //QHY248C FW
+    <usb-device vendor-id="5656" product-id="49736" class="0" subclass="0" protocol="0" />
+
+
+    //QHY DEVELOPMENT DEVICE IO  1618:5301
+    <usb-device vendor-id="5656" product-id="21249" class="0" subclass="0" protocol="0" />
+
+    //QHY5III290 FW
+    <usb-device vendor-id="5656" product-id="656" class="0" subclass="0" protocol="0" />
+
+
+
+
+    //1618:0921 QHY5-II series IO
+    <usb-device vendor-id="5656" product-id="2336" class="255" subclass="255" protocol="255" />
+
+
+
+    //QHY128 IO   1618:C129
+    <usb-device vendor-id="5656" product-id="49449"  />
+
+
+    //polemaster-IO   1618:0x941
+    <usb-device vendor-id="5656" product-id="2369"  />
+
+
+    //04b4:00F3  FX3 with EEPROM empty
+    <usb-device vendor-id="1204" product-id="243"  />
+
+</resources>

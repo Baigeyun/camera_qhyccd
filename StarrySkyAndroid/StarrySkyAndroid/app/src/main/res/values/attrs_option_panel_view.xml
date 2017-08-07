@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="OptionPanelView">
+        <attr name="selectedCategoryId" format="integer" />
+        <attr name="selectedSubCategoryId" format="integer" />
+    </declare-styleable>
+</resources>

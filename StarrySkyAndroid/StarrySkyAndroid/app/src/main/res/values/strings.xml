@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">StarrySkyAndroid</string>
+    <string name="title_activity_scan_result">扫描结果</string>
+    <string name="device_not_found">Not Found Devices</string>
+    <string name="scanning_usb_device">Scanning usb devices</string>
+    <string name="downloading_firmware">Downloading firmware...</string>
+    <string name="pleaseWait">Please wait...</string>
+    <string name="error">Error</string>
+    <string name="canNotOpenCamera">Can not open camera.</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">Ok</string>
+    <string name="resolution">ROI</string>
+    <string name="analogGain">AnalogGain</string>
+    <string name="digitalGain">DigitalGain</string>
+    <string name="traffice">traffice</string>
+    <string name="speed">speed</string>
+    <string name="exposureTime">exposure time</string>
+
+</resources>

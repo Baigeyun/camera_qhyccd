@@ -1,0 +1,10 @@
+<resources>
+    <declare-styleable name="SettingBarView">
+        <attr name="fps" format="integer" />
+        <attr name="temperature" format="integer" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="fontColor" format="color" />
+        <!-- horizontal/vertical -->
+        <attr name="orientation" format="string"></attr>
+    </declare-styleable>
+</resources>
