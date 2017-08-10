@@ -10,6 +10,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbRequest;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -46,7 +47,9 @@ import com.starrysky.helper.AlertHelper;
 import com.starrysky.helper.BitmapHelper;
 import com.starrysky.helper.CameraDeviceHelper;
 import com.starrysky.helper.Constants;
+import com.starrysky.helper.DateHelper;
 import com.starrysky.helper.FileHelper;
+import com.starrysky.helper.GalleryHelper;
 import com.starrysky.helper.PicHelper;
 import com.starrysky.helper.ProgressDialogHelper;
 import com.starrysky.helper.SharedPreferencesHelper;
@@ -61,6 +64,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -244,8 +248,13 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         mSettingBarView.setOnGalleryPreviewImageView1ClickListener(new OnImageClickListener() {
             @Override
             public void onClick(String filePath) {
-                Intent intent = new Intent(CameraViewportActivity.this, GalleryPreviewActivity.class);
+                /*Intent intent = new Intent(CameraViewportActivity.this, GalleryPreviewActivity.class);
                 intent.putExtra("filePath",filePath);
+                startActivity(intent);*/
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(new File(filePath)),"image/*");
                 startActivity(intent);
             }
         });
@@ -253,8 +262,13 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         mSettingBarView.setOnGalleryPreviewImageView1ClickListener(new OnImageClickListener() {
             @Override
             public void onClick(String filePath) {
-                Intent intent = new Intent(CameraViewportActivity.this, GalleryPreviewActivity.class);
+                /*Intent intent = new Intent(CameraViewportActivity.this, GalleryPreviewActivity.class);
                 intent.putExtra("filePath",filePath);
+                startActivity(intent);*/
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(new File(filePath)),"image/*");
                 startActivity(intent);
             }
         });
@@ -374,6 +388,12 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             Toast.makeText(getApplicationContext(),"截图已保存",Toast.LENGTH_SHORT).show();
 
             cameraViewportPresenter.loadLatestGallery(2);
+
+            // add picture to gallery
+            if( bitmap != null ){
+                String title = "Qhyccd" + DateHelper.format("yyyyMMddHHmmss",new Date());
+                GalleryHelper.saveToGallery(getApplicationContext(),bitmap,title,null);
+            }
         }
 
         @Override
