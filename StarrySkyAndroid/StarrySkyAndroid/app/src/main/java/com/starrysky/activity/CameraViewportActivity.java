@@ -388,12 +388,6 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             Toast.makeText(getApplicationContext(),"截图已保存",Toast.LENGTH_SHORT).show();
 
             cameraViewportPresenter.loadLatestGallery(2);
-
-            // add picture to gallery
-            if( bitmap != null ){
-                String title = "Qhyccd" + DateHelper.format("yyyyMMddHHmmss",new Date());
-                GalleryHelper.saveToGallery(getApplicationContext(),bitmap,title,null);
-            }
         }
 
         @Override
@@ -402,6 +396,9 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generatePicFileName() );
 
             PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
+
+            // link image to gallery
+            GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
             return "success";
         }
     }

@@ -16,7 +16,7 @@ import java.util.UUID;
 public class PicHelper {
     private static final String TAG = "PicHelper";
     public static final String PREFIX_VIDEO_FRAME = "VideoFrame_";
-    private static String sdBasePath = getSDCardPath() + "/com.starrysky";
+    private static String sdBasePath = getSDCardPath() + "/qhyccd";
 
     public static File getSavePath(Context context) {
         File path;
