@@ -1,7 +1,7 @@
 <div align=center><img src="https://github.com/Baigeyun/camera_qhyccd/raw/master/StarrySkyAndroid/StarrySkyAndroid/app/src/main/res/drawable/logo.png"/></div>
 
-#camera_qhyccd
-
+camera_qhyccd
+-
 
 说明（Readme):<br>
 -
