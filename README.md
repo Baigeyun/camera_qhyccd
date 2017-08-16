@@ -1,6 +1,6 @@
 <div align=center><img src="https://github.com/Baigeyun/camera_qhyccd/raw/master/StarrySkyAndroid/StarrySkyAndroid/app/src/main/res/drawable/logo.png"/></div>
 
-camera_qhyccd
+StarrySky
 =
 
 说明（Readme):<br>
@@ -11,6 +11,12 @@ camera_qhyccd
 支持的硬件列表（Supported hardware lists）：
 -
 
+* [QHY5-II相机](http://www.qhyccd.com/cn/QHY5-II.html)
+* Android 4.4或更高版本
+* USB OTG的Android设备上（的On-The-GO）支持
+>>* QHY5-II Series USB2.0 Planetary/Guiding Camera
+>>* Android 4.4 or later
+>>* USB OTG (On-The-Go) support on Android device
 
 
 
