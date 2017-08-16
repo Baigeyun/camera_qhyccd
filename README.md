@@ -2,7 +2,7 @@
 
 
 说明（Readme):
-
+`StarrySky`是一款可以配备`QHY 5-II系列相机`的Android应用程序，它将QHY 5-II导星相机通过OTG连接到Android设备，并使用Starry Sky应用程序来拍摄图片，极大的方便了喜欢户外探索的用户，减少他们携带电脑的不便。
 
 
 支持的硬件列表（Supported hardware lists）：
