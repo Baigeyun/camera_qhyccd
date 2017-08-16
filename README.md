@@ -1,5 +1,6 @@
  camera_qhyccd
  =
+<div align=center><img src="https://github.com/Baigeyun/camera_qhyccd/raw/master/StarrySkyAndroid/StarrySkyAndroid/app/src/main/res/drawable/logo.png"/></div>
 ![](https://github.com/Baigeyun/camera_qhyccd/raw/master/StarrySkyAndroid/StarrySkyAndroid/app/src/main/res/drawable/logo.png)
 
 说明（Readme):<br>
