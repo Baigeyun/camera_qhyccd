@@ -93,7 +93,7 @@ public class ScanResultActivity extends BaseActivity implements ScanResultContra
                         scanDevice();
 
                     } else {
-                        Toast.makeText(ScanResultActivity.this,"无法获取权限",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScanResultActivity.this,"Unable to get permission",Toast.LENGTH_SHORT).show();
                     }
                 }
             } else if( ACTION_USB_DETACHED.equals(action) ){
@@ -103,7 +103,7 @@ public class ScanResultActivity extends BaseActivity implements ScanResultContra
             }
             else
             {
-                Toast.makeText(ScanResultActivity.this,"没有搜索到设备",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanResultActivity.this,"No devices found",Toast.LENGTH_SHORT).show();
             }
         }
     };

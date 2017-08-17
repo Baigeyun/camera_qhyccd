@@ -48,7 +48,7 @@
             android:textSize="18dp"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
-            android:text="设置"/>
+            android:text="Setting"/>
 
     </LinearLayout>
 

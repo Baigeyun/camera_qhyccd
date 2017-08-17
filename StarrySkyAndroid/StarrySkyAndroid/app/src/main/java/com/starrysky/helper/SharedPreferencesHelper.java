@@ -16,6 +16,7 @@ public class SharedPreferencesHelper {
     public static final String KEY_SETTING_TRAFFICE = "KEY_SETTING_TRAFFICE";
     public static final String KEY_SETTING_SPEED = "KEY_SETTING_SPEED";
     public static final String KEY_SETTING_EXPOSURE_TIME = "KEY_SETTING_EXPOSURE_TIME";
+    public static final String KEY_SETTING_OUTPUT_IMAGE_FORMAT = "KEY_SETTING_OUTPUT_IMAGE_FORMAT";
 
     public static final String KEY_SETTING_CATEGORY_PRIFIX = "KEY_SETTING_CATEGORY_PRIFIX_";
 

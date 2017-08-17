@@ -52,7 +52,7 @@ public class GalleryPreviewActivity extends AppCompatActivity {
     }
 
     private void showVideo() {
-        Toast.makeText(getApplicationContext(),"获取视频：" + filePath,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Get video：" + filePath,Toast.LENGTH_SHORT).show();
         Uri uri = Uri.fromFile(new File(filePath));
         videoView.setMediaController(new MediaController(this));
         videoView.setVideoURI(uri);

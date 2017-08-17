@@ -136,6 +136,8 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
 
     int videoTmpFileIndex = 0;
 
+    private int headByteFrom = 0;
+    private String outputFormat = null;
     /* present */
     private CameraViewportPresenter cameraViewportPresenter;
 
@@ -178,7 +180,6 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         getIntentData();
 
         initView();
-
 
         cameraViewportPresenter.loadLatestGallery(2);
     }
@@ -301,7 +302,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
     }
 
     private void recordDone() {
-        Toast.makeText(CameraViewportActivity.this,"结束录制，正在保存视频...",Toast.LENGTH_SHORT).show();
+        Toast.makeText(CameraViewportActivity.this,"saving video ...",Toast.LENGTH_SHORT).show();
         isRecording = false;
         saveVideo();
     }
@@ -335,7 +336,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             @Override
             public void onStart() {
                 Log.i(TAG,"### start ");
-                ProgressDialogHelper.getInstance().showProgressDialog(CameraViewportActivity.this,"正在处理视频...");
+                ProgressDialogHelper.getInstance().showProgressDialog(CameraViewportActivity.this,"Processing video ...");
 
             }
 
@@ -379,13 +380,13 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         @Override
         protected void onPreExecute() {
             //super.onPreExecute();
-            Toast.makeText(getApplicationContext(),"正在保存截图..." ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Saving screenshots..." ,Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPostExecute(String s) {
             isCapturing =  false;
-            Toast.makeText(getApplicationContext(),"截图已保存",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Screenshot saved",Toast.LENGTH_SHORT).show();
 
             cameraViewportPresenter.loadLatestGallery(2);
         }
@@ -424,6 +425,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             isRun = true;
             initCamera();
 
+            initHeadByteFrom();
             initFields(BITMAP_WIDTH,BITMAP_HEIGHT);
             CameraDeviceHelper.CCC_A2(cameraHandler.getUsbDeviceConnection(),(byte)0, BITMAP_WIDTH ,0,BITMAP_HEIGHT,0);
             delay_ms(100);
@@ -449,6 +451,14 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                 cameraHandler.getUsbDeviceConnection().close();
             }
 
+        }
+    }
+
+    private void initHeadByteFrom() {
+        if( productId == 49507 || productId == 49508 ){
+            headByteFrom = 4;
+        }else{
+            headByteFrom = 5;
         }
     }
 
@@ -667,7 +677,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         int rx_byte=0;
         protected void onHead(){
             //identity the bad/good frame
-            if (log_request_received_total != (BITMAP_HEIGHT * BITMAP_WIDTH)+5){
+            if (log_request_received_total != (BITMAP_HEIGHT * BITMAP_WIDTH)+ headByteFrom ){
                 Log.v("Bad frames", "receive byte=" + String.valueOf(rx_byte) + "pixelPosition=" + String.valueOf(pixelPosition) + "packageTotal=" + log_request_received_total);
                 if(flag_ab==true) flag_frameGood_a=false;
                 else               flag_frameGood_b=false;
@@ -730,9 +740,9 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                 //5 bytes.   16384 bytes   and   the bytes between  5 to 16384. We will do different work based on this number
                 //andorid usb class can only handle maxium 16384 byte transfer.
 
-                if(rx_byte== 5 ){
+                if(rx_byte== headByteFrom ){
 
-                    log_request_received_total=log_request_received_total+5;
+                    log_request_received_total=log_request_received_total+ headByteFrom;
 
                     if ((xbuffer[x].get(0)==-86) && (xbuffer[x].get(1)==17) && (xbuffer[x].get(2)==-52) && (xbuffer[x].get(3)==-18))
                     {
@@ -742,10 +752,10 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
 
                     else{
 
-                        if(pixelPosition<BITMAP_WIDTH*BITMAP_HEIGHT-5) {
-                            if (flag_ab==true) System.arraycopy(xbufferdata[x], 0, ImgDataA, pixelPosition, 5);
-                            else                System.arraycopy(xbufferdata[x], 0, ImgDataB, pixelPosition, 5);
-                            pixelPosition = pixelPosition + 5;
+                        if(pixelPosition<BITMAP_WIDTH*BITMAP_HEIGHT- headByteFrom ) {
+                            if (flag_ab==true) System.arraycopy(xbufferdata[x], 0, ImgDataA, pixelPosition, headByteFrom);
+                            else                System.arraycopy(xbufferdata[x], 0, ImgDataB, pixelPosition, headByteFrom);
+                            pixelPosition = pixelPosition + headByteFrom;
 
                             if(log_request_count < memsize -2)
                             {
@@ -764,7 +774,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
 
                 else if(rx_byte==0){
                 }
-                else if(rx_byte>5){
+                else if(rx_byte>headByteFrom){
 
                     log_request_received_total=log_request_received_total+rx_byte;
                     if(log_request_count < memsize -2)
@@ -797,7 +807,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                     }
 
                     //frame head possible condition #2: the five head byte is in the end of one package of return data.
-                    if ((xbuffer[x].get(rx_byte-5)==-86) && (xbuffer[x].get(rx_byte-4)==17) && (xbuffer[x].get(rx_byte-3)==-52) && (xbuffer[x].get(rx_byte-2)==-18))
+                    if ((xbuffer[x].get(rx_byte-headByteFrom)==-86) && (xbuffer[x].get(rx_byte-4)==17) && (xbuffer[x].get(rx_byte-3)==-52) && (xbuffer[x].get(rx_byte-2)==-18))
                     {
                         onHead();
                         Log.v(TAG,"head on end" );
@@ -991,7 +1001,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                 public void onSuccess() {
                     //textView.append("读取FFmpeg library 成功 \n");
                     Log.i(TAG,"读取FFmpeg library 成功");
-                    Toast.makeText(getApplicationContext(),"读取FFmpeg library 成功",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"读取FFmpeg library 成功",Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (FFmpegNotSupportedException e) {
@@ -1002,8 +1012,8 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
     private void showUnsupportedExceptionDialog() {
         new AlertDialog.Builder(CameraViewportActivity.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("不被支持的设备")
-                .setMessage("不支持ffmpeg")
+                .setTitle("Error")
+                .setMessage("Your device do not support ffmpeg")
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -1036,6 +1046,7 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         String digitalGainCateName = getResources().getString(R.string.digitalGain);
         String speedCateName = getResources().getString(R.string.speed);
         String exposureTimeCateName = getResources().getString(R.string.exposureTime);
+        String outputImageFormat = getResources().getString(R.string.outputImageFormat);
 
         final String subCategoryName =  detailItem.getName();
         if( resolutionCateName.equals(item.getName()) ){
@@ -1090,13 +1101,16 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                     CameraDeviceHelper.CCC_A3(usbDeviceConnection, TimeHelper.toUs(subCategoryName) );
                 }
             },100);
+        }else if( outputImageFormat.equals(item.getName()) ){
+           outputFormat = subCategoryName;
         }
     }
 
-    private void saveSetting(Category category, SubCategory subCategory) {
+
+  /*  private void saveSetting(Category category, SubCategory subCategory) {
         if( category != null && subCategory != null ){
             SharedPreferencesHelper.put(getApplicationContext(), SharedPreferencesHelper.KEY_SETTING_CATEGORY_PRIFIX + category.getIndex(), subCategory.getIndex() );
 
         }
-    }
+    }*/
 }

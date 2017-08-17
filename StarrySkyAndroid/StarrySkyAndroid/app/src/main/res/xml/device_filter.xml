@@ -36,4 +36,10 @@
     //04b4:00F3  FX3 with EEPROM empty
     <usb-device vendor-id="1204" product-id="243"  />
 
+    // QHY163
+    <usb-device vendor-id="5656" product-id="‭49507‬" class="0" subclass="0" protocol="0" />
+
+    // QHY164
+    <usb-device vendor-id="5656" product-id="‭49508‬" class="0" subclass="0" protocol="0" />
+
 </resources>

@@ -41,7 +41,7 @@ public class SplashActivity extends BaseActivity {
 
                     @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if( report.areAllPermissionsGranted() == false ){
-                            AlertHelper.showOKDialog(SplashActivity.this, "权限不足", "您拒绝了某些权限，请在设置中打开应用需要的所有权限", new DialogInterface.OnClickListener() {
+                            AlertHelper.showOKDialog(SplashActivity.this, "No Permission", "You have denied some permissions, please open all the permissions you need in your settings", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     SplashActivity.this.finish();
