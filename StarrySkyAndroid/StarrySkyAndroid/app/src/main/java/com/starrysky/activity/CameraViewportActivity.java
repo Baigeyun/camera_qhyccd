@@ -52,6 +52,7 @@ import com.starrysky.helper.FileHelper;
 import com.starrysky.helper.GalleryHelper;
 import com.starrysky.helper.PicHelper;
 import com.starrysky.helper.ProgressDialogHelper;
+import com.starrysky.helper.SettingHelper;
 import com.starrysky.helper.SharedPreferencesHelper;
 import com.starrysky.helper.TimeHelper;
 import com.starrysky.listener.OnImageClickListener;
@@ -394,12 +395,33 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
         @Override
         protected String doInBackground(String... strings) {
             File savePath = PicHelper.getSavePath(getApplicationContext());
-            final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generatePicFileName() );
 
-            PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
 
-            // link image to gallery
-            GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
+            String outputInputFormat = getApplicationContext().getResources().getString(R.string.outputImageFormat);
+            String outputInputFormatVal = SettingHelper.getSavedSetting(getApplicationContext(),outputInputFormat);
+            if( outputInputFormatVal == null ){
+                // default save jpg
+                final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generateJpegFileName() );
+                PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
+            }else if( outputInputFormatVal.equals("JPEG") ){
+                final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generateJpegFileName() );
+                PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
+            }else if( outputInputFormatVal.equals("PNG") ){
+                final File pngFile = new File(savePath.getAbsolutePath(), PicHelper.generatePngFileName() );
+                PicHelper.savePngToFile(pngFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),pngFile);
+            }else if( outputInputFormatVal.equals("BMP") ){
+                final File bmpFile = new File(savePath.getAbsolutePath(), PicHelper.generateBmpFileName() );
+                PicHelper.saveBmpToFile(bmpFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),bmpFile);
+            }
+
             return "success";
         }
     }

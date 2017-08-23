@@ -22,4 +22,14 @@ public class SettingHelper {
             return settingValue;
         }
     }
+
+    public static String getSavedSetting( Context context ,String settingItemName) {
+        Object obj = SharedPreferencesHelper.get(context, SharedPreferencesHelper.KEY_SETTING_CATEGORY_PRIFIX + settingItemName,"");
+        String settingValue = obj == null ? null : (String)obj;
+        if ( settingValue  == null ) {
+            return null;
+        }else{
+            return settingValue;
+        }
+    }
 }

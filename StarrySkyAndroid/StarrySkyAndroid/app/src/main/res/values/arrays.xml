@@ -85,7 +85,7 @@
     <string-array name="outputImageFormat">
         <item>JPEG</item>
         <item>PNG</item>
-        <item>TIFF</item>
+        <item>BMP</item>
         <item>TIFF</item>
         <item>RAW</item>
     </string-array>

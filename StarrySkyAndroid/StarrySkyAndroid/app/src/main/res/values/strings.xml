@@ -18,6 +18,6 @@
     <string name="traffice">traffice</string>
     <string name="speed">speed</string>
     <string name="exposureTime">exposure time</string>
-    <string name="outputImageFormat">Output Image Format</string>
+    <string name="outputImageFormat">Output Format</string>
 
 </resources>

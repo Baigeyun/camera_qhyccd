@@ -103,10 +103,10 @@ public class PicHelper {
         return path.getAbsolutePath();
     }
 
-    public static String generatePicFileName() {
+    /*public static String generatePicFileName() {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         return timestamp + Constants.FILE_SUFFIX_JPEG;
-    }
+    }*/
 
     public static String generateVideoFileName() {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -143,4 +143,36 @@ public class PicHelper {
        return bitmapBytes;
    }
 
+    public static String generateJpegFileName() {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return timestamp + Constants.FILE_SUFFIX_JPEG;
+    }
+
+    public static void savePngToFile(String absolutePath, Bitmap bitmap) {
+
+        try {
+            FileOutputStream out = new FileOutputStream(absolutePath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 70, out);
+            out.flush();
+            out.close();
+
+        } catch(Exception e) {
+            Log.e(TAG,e.getMessage());
+        }
+    }
+
+    public static String generatePngFileName() {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return timestamp + Constants.FILE_SUFFIX_PNG;
+    }
+
+    public static String generateBmpFileName() {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return timestamp + Constants.FILE_SUFFIX_BMP;
+    }
+
+    public static void saveBmpToFile(String absolutePath, Bitmap bitmap) {
+        BmpHelper bmpHelper = new BmpHelper();
+        bmpHelper.save(bitmap, absolutePath);
+    }
 }

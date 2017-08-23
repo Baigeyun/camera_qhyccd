@@ -9,4 +9,6 @@ public class Constants {
     public static final String EXTRA_KEY_PRODUCT_ID = "productId";
     public static final String FILE_SUFFIX_JPEG = ".jpeg";
     public static final String FILE_SUFFIX_MP4 = ".mp4";
+    public static final String FILE_SUFFIX_PNG = ".png";
+    public static final String FILE_SUFFIX_BMP = ".bmp";
 }
