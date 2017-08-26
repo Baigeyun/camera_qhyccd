@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+import org.beyka.tiffbitmapfactory.CompressionScheme;
+import org.beyka.tiffbitmapfactory.Orientation;
+import org.beyka.tiffbitmapfactory.TiffSaver;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -171,8 +175,24 @@ public class PicHelper {
         return timestamp + Constants.FILE_SUFFIX_BMP;
     }
 
+
     public static void saveBmpToFile(String absolutePath, Bitmap bitmap) {
         BmpHelper bmpHelper = new BmpHelper();
         bmpHelper.save(bitmap, absolutePath);
+    }
+
+    public static String generateTiffFileName() {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return timestamp + Constants.FILE_SUFFIX_TIFF;
+    }
+
+    public static void saveTiffToFile(String absolutePath, Bitmap bitmap) {
+        TiffSaver.SaveOptions options = new TiffSaver.SaveOptions();
+        options.compressionScheme = CompressionScheme.LZW;
+        options.orientation = Orientation.LEFT_TOP;
+        options.author = "baigeyun";
+        options.copyright = "baigeyun qhyccd";
+
+        boolean saved = TiffSaver.saveBitmap(absolutePath, bitmap, options);
     }
 }

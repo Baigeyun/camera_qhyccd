@@ -11,4 +11,5 @@ public class Constants {
     public static final String FILE_SUFFIX_MP4 = ".mp4";
     public static final String FILE_SUFFIX_PNG = ".png";
     public static final String FILE_SUFFIX_BMP = ".bmp";
+    public static final String FILE_SUFFIX_TIFF = ".tif";
 }

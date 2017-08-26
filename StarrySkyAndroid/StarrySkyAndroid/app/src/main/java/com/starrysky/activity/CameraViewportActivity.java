@@ -420,6 +420,11 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                 PicHelper.saveBmpToFile(bmpFile.getAbsolutePath(),bitmap);
                 // link image to gallery
                 GalleryHelper.linkToGallery(getApplicationContext(),bmpFile);
+            }else if( outputInputFormatVal.equals("TIFF") ){
+                final File tiffFile = new File(savePath.getAbsolutePath(), PicHelper.generateTiffFileName() );
+                PicHelper.saveTiffToFile(tiffFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),tiffFile);
             }
 
             return "success";
