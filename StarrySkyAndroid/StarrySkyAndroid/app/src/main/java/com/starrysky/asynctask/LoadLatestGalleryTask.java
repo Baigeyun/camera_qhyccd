@@ -38,7 +38,10 @@ public class LoadLatestGalleryTask extends AsyncTask<Integer,Integer,List<String
         File files[] = savePathFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
-                if( name != null && (name.endsWith(Constants.FILE_SUFFIX_JPEG) || name.endsWith(Constants.FILE_SUFFIX_MP4)) ){
+                if( name != null && (name.endsWith(Constants.FILE_SUFFIX_JPEG)
+                        || name.endsWith(Constants.FILE_SUFFIX_BMP)
+                        || name.endsWith(Constants.FILE_SUFFIX_PNG)
+                        || name.endsWith(Constants.FILE_SUFFIX_MP4)) ){
                     return true;
                 }
                 return false;

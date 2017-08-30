@@ -423,9 +423,20 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             }else if( outputInputFormatVal.equals("TIFF") ){
                 final File tiffFile = new File(savePath.getAbsolutePath(), PicHelper.generateTiffFileName() );
                 PicHelper.saveTiffToFile(tiffFile.getAbsolutePath(),bitmap);
+
+                final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generateJpegFileName() );
+                PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
                 // link image to gallery
-                GalleryHelper.linkToGallery(getApplicationContext(),tiffFile);
-            }
+                GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
+            }/*else if( outputInputFormatVal.equals("RAW 1") ){
+                final File tiffFile = new File(savePath.getAbsolutePath(), PicHelper.generateTiffFileName() );
+                PicHelper.saveTiffToFile(tiffFile.getAbsolutePath(),bitmap);
+
+                final File jpegFile = new File(savePath.getAbsolutePath(), PicHelper.generateJpegFileName() );
+                PicHelper.saveJpegToFile(jpegFile.getAbsolutePath(),bitmap);
+                // link image to gallery
+                GalleryHelper.linkToGallery(getApplicationContext(),jpegFile);
+            }*/
 
             return "success";
         }

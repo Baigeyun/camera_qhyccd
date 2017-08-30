@@ -236,7 +236,9 @@ public class SettingBarView extends ConstraintLayout {
                 GalleryData galleryData = new GalleryData();
 
                 galleryData.setSourceFilePath(sourceFilePath);
-                if(sourceFilePath.endsWith(Constants.FILE_SUFFIX_JPEG)){
+                if(sourceFilePath.endsWith(Constants.FILE_SUFFIX_JPEG)
+                        || sourceFilePath.endsWith(Constants.FILE_SUFFIX_BMP)
+                        || sourceFilePath.endsWith(Constants.FILE_SUFFIX_PNG)){
                     galleryData.setType(GalleryData.TYPE_IMAGE);
                     galleryData.setPreviewImageBytes(null);
                 }else if( sourceFilePath.endsWith(Constants.FILE_SUFFIX_MP4) ){
