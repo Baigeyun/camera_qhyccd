@@ -2,27 +2,19 @@ package com.starrysky.asynctask;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Camera;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.starrysky.activity.CameraViewportActivity;
 import com.starrysky.helper.BitmapHelper;
 import com.starrysky.helper.Constants;
-import com.starrysky.helper.EventEmitter;
 import com.starrysky.helper.PicHelper;
-import com.starrysky.helper.ProgressDialogHelper;
 
 import org.jcodec.api.android.SequenceEncoder;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class SaveVideoTask extends AsyncTask<Void,Integer,String> {

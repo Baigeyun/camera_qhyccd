@@ -37,17 +37,14 @@ import com.starrysky.customview.VideoSurfaceView;
 import com.starrysky.dto.CameraDevice;
 import com.starrysky.dto.CameraHandler;
 import com.starrysky.dto.CameraInfo;
-import com.starrysky.dto.Category;
 import com.starrysky.dto.SettingMenuDetailItem;
 import com.starrysky.dto.SettingMenuItem;
-import com.starrysky.dto.SubCategory;
 import com.starrysky.event.CameraViewportMessageEvent;
 import com.starrysky.event.MessageEvent;
 import com.starrysky.helper.AlertHelper;
 import com.starrysky.helper.BitmapHelper;
 import com.starrysky.helper.CameraDeviceHelper;
 import com.starrysky.helper.Constants;
-import com.starrysky.helper.DateHelper;
 import com.starrysky.helper.FileHelper;
 import com.starrysky.helper.GalleryHelper;
 import com.starrysky.helper.PicHelper;
@@ -65,7 +62,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.nio.ByteBuffer;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -139,12 +135,14 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
 
     private int headByteFrom = 0;
     private String outputFormat = null;
+    private Integer sensorType;
     /* present */
     private CameraViewportPresenter cameraViewportPresenter;
 
     private MediaRecorder mediaRecorder;
 
     private boolean isHistDrawing = false;
+
 
     class FpsTask extends AsyncTask<Void,Integer,Void>{
         @Override
@@ -464,6 +462,9 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
             initCamera();
 
             initHeadByteFrom();
+
+            loadMonoType();
+
             initFields(BITMAP_WIDTH,BITMAP_HEIGHT);
             CameraDeviceHelper.CCC_A2(cameraHandler.getUsbDeviceConnection(),(byte)0, BITMAP_WIDTH ,0,BITMAP_HEIGHT,0);
             delay_ms(100);
@@ -489,6 +490,17 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                 cameraHandler.getUsbDeviceConnection().close();
             }
 
+        }
+    }
+
+
+    private void loadMonoType() {
+        if( sensorType == null ){
+            CameraInfo cm = new CameraInfo();
+            CameraDeviceHelper.readCameraInfo(cameraHandler.getUsbDeviceConnection(),cm);
+            if( cm != null ){
+                sensorType = cm.sensorType;
+            }
         }
     }
 
@@ -926,6 +938,9 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                         bmp = getCachedBitmap();
 
                         if( c != null && bmp != null ){
+
+                            PicHelper.colorImageIfNeeded(sensorType,bmp);
+
                             final Bitmap scaledBmp = BitmapHelper.scaleDown(bmp,500,true);
                             c.drawBitmap(scaledBmp,null,holder.getSurfaceFrame(),p);
 

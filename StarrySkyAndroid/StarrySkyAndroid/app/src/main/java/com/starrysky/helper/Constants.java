@@ -12,4 +12,7 @@ public class Constants {
     public static final String FILE_SUFFIX_PNG = ".png";
     public static final String FILE_SUFFIX_BMP = ".bmp";
     public static final String FILE_SUFFIX_TIFF = ".tif";
+
+    public final static int SENSOR_TYPE_MONO = 0 ;
+    public final static int SENSOR_TYPE_RGB = 1 ;
 }
