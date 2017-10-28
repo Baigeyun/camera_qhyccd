@@ -3,8 +3,10 @@ package com.starrysky.helper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
+
 
 import org.beyka.tiffbitmapfactory.CompressionScheme;
 import org.beyka.tiffbitmapfactory.Orientation;
@@ -24,7 +26,7 @@ public class PicHelper {
 
     public static File getSavePath(Context context) {
         File path;
-       if (hasSDCard()) { // SD card
+        if (hasSDCard()) { // SD card
             path = new File(sdBasePath);
             if( !path.exists() ){
                 path.mkdir();
@@ -127,25 +129,25 @@ public class PicHelper {
     }
 
 
-   public static byte[] readJpegBytes(Bitmap bitmap){
-       ByteArrayOutputStream stream = null;
-       byte[] bitmapBytes = null;
-       try{
-           stream = new ByteArrayOutputStream();
-           bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-           bitmapBytes = stream.toByteArray();
-       }catch(Exception e){
-           Log.e(TAG,e.getMessage());
-       }finally{
-           try{
-               stream.close();
-           }catch(Exception e ){
-               Log.e(TAG,e.getMessage());
-           }
-       }
+    public static byte[] readJpegBytes(Bitmap bitmap){
+        ByteArrayOutputStream stream = null;
+        byte[] bitmapBytes = null;
+        try{
+            stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+            bitmapBytes = stream.toByteArray();
+        }catch(Exception e){
+            Log.e(TAG,e.getMessage());
+        }finally{
+            try{
+                stream.close();
+            }catch(Exception e ){
+                Log.e(TAG,e.getMessage());
+            }
+        }
 
-       return bitmapBytes;
-   }
+        return bitmapBytes;
+    }
 
     public static String generateJpegFileName() {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -196,43 +198,49 @@ public class PicHelper {
         boolean saved = TiffSaver.saveBitmap(absolutePath, bitmap, options);
     }
 
-    public static void colorImageIfNeeded(Integer sensorType , Bitmap bmp) {
-        if( sensorType != null && sensorType.equals(Constants.SENSOR_TYPE_RGB) ){
-            int r=0, g=0, b=0;
-            for(int x=2;x<bmp.getWidth()-2;x++){
-                for(int y=2;y<bmp.getHeight()-2;y++){
-                    int col = x%2;
-                    int row = y%2;
+
+    private static int brightness(int rgb) {
+        return rgb & 0x0000FF;
+    }
+
+
+    public static void colorImageIfNeeded(Integer sensorType,Bitmap bmp)
+    {
+        if( sensorType != null && sensorType.equals(Constants.SENSOR_TYPE_RGB) ) {
+            int r = 0, g = 0, b = 0;
+            for (int x = 2; x < bmp.getWidth() - 2; x++) {
+                for (int y = 2; y < bmp.getHeight() - 2; y++) {
+                    int col = x % 2;
+                    int row = y % 2;
                     //0,0 B    1,1 R    0,1 1,0 G
-                    if (col+row == 0){
+                    if (col + row == 0) {
                         // B
-                        r = (int) (0.25*(brightness(bmp.getRGB(x+1, y-1))+brightness(srcImg.getRGB(x+1, y+1))+brightness(srcImg.getRGB(x-1, y-1))+brightness(srcImg.getRGB(x-1, y+1))));;
-                        g = (int) (0.25*(brightness(srcImg.getRGB(x-1, y))+brightness(srcImg.getRGB(x+1, y))+brightness(srcImg.getRGB(x, y-1))+brightness(srcImg.getRGB(x, y+1))));
-                        b = brightness(srcImg.getRGB(x, y));
-                    } else if (col+row == 1){
+                        b = (int) (0.5 * (brightness(bmp.getPixel(x, y - 1)) + brightness(bmp.getPixel(x, y + 1))));
+                        g = brightness(bmp.getPixel(x, y));
+                        r = (int) (0.5 * (brightness(bmp.getPixel(x - 1, y)) + brightness(bmp.getPixel(x + 1, y))));
+
+                    } else if (col + row == 1) {
                         // G
-                        if (row==0){
-                            r=(int) (0.5*(brightness(srcImg.getRGB(x, y-1))+brightness(srcImg.getRGB(x, y+1))));
-                            g=brightness(srcImg.getRGB(x, y));
-                            b=(int) (0.5*(brightness(srcImg.getRGB(x-1, y))+brightness(srcImg.getRGB(x+1, y))));
+                        if (row == 0) {
+                            r = brightness(bmp.getPixel(x, y));
+                            g = (int) (0.25 * (brightness(bmp.getPixel(x - 1, y)) + brightness(bmp.getPixel(x + 1, y)) + brightness(bmp.getPixel(x, y - 1)) + brightness(bmp.getPixel(x, y + 1))));
+                            b = (int) (0.25 * (brightness(bmp.getPixel(x + 1, y - 1)) + brightness(bmp.getPixel(x + 1, y + 1)) + brightness(bmp.getPixel(x - 1, y - 1)) + brightness(bmp.getPixel(x - 1, y + 1))));
                         } else {
-                            b=(int) (0.5*(brightness(srcImg.getRGB(x, y-1))+brightness(srcImg.getRGB(x, y+1))));
-                            g=brightness(srcImg.getRGB(x, y));
-                            r=(int) (0.5*(brightness(srcImg.getRGB(x-1, y))+brightness(srcImg.getRGB(x+1, y))));
+                            r = (int) (0.25 * (brightness(bmp.getPixel(x + 1, y - 1)) + brightness(bmp.getPixel(x + 1, y + 1)) + brightness(bmp.getPixel(x - 1, y - 1)) + brightness(bmp.getPixel(x - 1, y + 1))));
+                            g = (int) (0.25 * (brightness(bmp.getPixel(x - 1, y)) + brightness(bmp.getPixel(x + 1, y)) + brightness(bmp.getPixel(x, y - 1)) + brightness(bmp.getPixel(x, y + 1))));
+                            b = brightness(bmp.getPixel(x, y));
                         }
                     } else {
                         // R
-                        r = brightness(srcImg.getRGB(x, y));
-                        g = (int) (0.25*(brightness(srcImg.getRGB(x-1, y))+brightness(srcImg.getRGB(x+1, y))+brightness(srcImg.getRGB(x, y-1))+brightness(srcImg.getRGB(x, y+1))));
-                        b = (int) (0.25*(brightness(srcImg.getRGB(x+1, y-1))+brightness(srcImg.getRGB(x+1, y+1))+brightness(srcImg.getRGB(x-1, y-1))+brightness(srcImg.getRGB(x-1, y+1))));;
+                        r = (int) (0.5 * (brightness(bmp.getPixel(x, y - 1)) + brightness(bmp.getPixel(x, y + 1))));
+                        g = brightness(bmp.getPixel(x, y));
+                        b = (int) (0.5 * (brightness(bmp.getPixel(x - 1, y)) + brightness(bmp.getPixel(x + 1, y))));
+
                     }
-                    procImg.setRGB(x, y, new Color(r,g,b).getRGB());
+                    bmp.setPixel(x, y, Color.rgb(r, g, b));
                 }
             }
         }
     }
 
-    private int brightness(int rgb) {
-        return rgb & 0x0000FF;
-    }
 }
