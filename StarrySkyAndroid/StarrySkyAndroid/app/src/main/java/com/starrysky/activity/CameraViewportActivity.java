@@ -48,6 +48,7 @@ import com.starrysky.helper.Constants;
 import com.starrysky.helper.FileHelper;
 import com.starrysky.helper.GalleryHelper;
 import com.starrysky.helper.PicHelper;
+import com.starrysky.helper.PicHelperExt;
 import com.starrysky.helper.ProgressDialogHelper;
 import com.starrysky.helper.SettingHelper;
 import com.starrysky.helper.SharedPreferencesHelper;
@@ -935,11 +936,15 @@ public class CameraViewportActivity extends BaseActivity implements CameraViewpo
                         c = holder.lockCanvas();//锁定画布，一般在锁定后就可以通过其返回的画布对象Canvas，在其上面画图等操作了。
                         Paint p = new Paint(); //创建画笔
 
+                        //这每次都新创建bmp，之前的没有释放 ，会不会存在内存溢出
+
                         bmp = getCachedBitmap();
 
                         if( c != null && bmp != null ){
 
-                            PicHelper.colorImageIfNeeded(sensorType,bmp);
+                           // PicHelper.colorImageIfNeeded(sensorType,bmp);
+                            //使用cpp来进行计算
+                            PicHelperExt.getInstance().colorImageIfNeeded(sensorType,bmp);
 
                             final Bitmap scaledBmp = BitmapHelper.scaleDown(bmp,500,true);
                             c.drawBitmap(scaledBmp,null,holder.getSurfaceFrame(),p);
