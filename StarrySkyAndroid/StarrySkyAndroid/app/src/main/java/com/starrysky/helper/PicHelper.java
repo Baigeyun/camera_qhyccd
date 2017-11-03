@@ -206,7 +206,9 @@ public class PicHelper {
 
     public static void colorImageIfNeeded(Integer sensorType,Bitmap bmp)
     {
+
         if( sensorType != null && sensorType.equals(Constants.SENSOR_TYPE_RGB) ) {
+            long startTime = System.currentTimeMillis();
             int r = 0, g = 0, b = 0;
             for (int x = 2; x < bmp.getWidth() - 2; x++) {
                 for (int y = 2; y < bmp.getHeight() - 2; y++) {
@@ -240,7 +242,8 @@ public class PicHelper {
                     bmp.setPixel(x, y, Color.rgb(r, g, b));
                 }
             }
+            long end = System.currentTimeMillis() - startTime;
+            Log.v(TAG ,"time = " + end );
         }
     }
-
 }
